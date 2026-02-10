@@ -1,7 +1,7 @@
 import path from 'node:path';
 import express from 'express';
 import cors from 'cors';
-import { NewsService } from './services/NewsService.ts';
+import { NewsService } from './services/NewsService.js';
 import { fileURLToPath } from 'node:url';
 
 const app = express();
