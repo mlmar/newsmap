@@ -15,7 +15,7 @@ app.get('/news', async (req, res) => {
     res.send(news);
 });
 
-const staticDirecory = "/dist";
+const staticDirecory = "../dist";
 app.use(express.static(path.join(__dirname, staticDirecory)));
 app.get("/", function (req, res) {
     res.sendFile(path.join(__dirname, staticDirecory, "index.html"));
