@@ -1,7 +1,7 @@
 import path from 'node:path';
 import express from 'express';
 import cors from 'cors';
-import { NewsService } from '../services/NewsService';
+import { NewsService } from './services/NewsService';
 
 const app = express();
 const port = 3300;
@@ -15,9 +15,9 @@ app.get('/news', async (req, res) => {
     res.send(news);
 });
 
-const staticDirectory = path.resolve(__dirname, '../dist');
-app.use(express.static(staticDirectory));
-app.get(/.*/, function (req, res) {
+const staticDirectory = '/dist';
+app.use(express.static(path.join(__dirname, staticDirectory)));
+app.get("/", function (req, res) {
     res.sendFile(path.join(__dirname, staticDirectory, "index.html"));
 });
 
