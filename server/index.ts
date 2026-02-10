@@ -1,10 +1,14 @@
 import path from 'node:path';
 import express from 'express';
 import cors from 'cors';
-import { NewsService } from './services/NewsService';
+import { NewsService } from './services/NewsService.ts';
+import { fileURLToPath } from 'node:url';
 
 const app = express();
 const port = 3300;
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.use(cors({
     origin: '*'
