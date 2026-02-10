@@ -23,18 +23,8 @@ export default defineConfig({
             '@': fileURLToPath(new URL('./src', import.meta.url))
         },
     },
-    optimizeDeps: {
-        include: ['leaflet', '@vue-leaflet/vue-leaflet'] // Add your leaflet-related packages here
-    },
     build: {
         outDir: '../server/dist',
-        emptyOutDir: true,
-        commonjsOptions: {
-            include: [/leaflet/, /node_modules/] // Ensure node_modules/leaflet is included
-        }
-
-    },
-    define: {
-        'exports': {},
-    },
+        emptyOutDir: true
+    }
 })

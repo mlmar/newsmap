@@ -15,10 +15,10 @@ app.get('/news', async (req, res) => {
     res.send(news);
 });
 
-const staticDirecory = "../dist";
-app.use(express.static(path.join(__dirname, staticDirecory)));
-app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, staticDirecory, "index.html"));
+const staticDirectory = path.resolve(__dirname, '../dist');
+app.use(express.static(staticDirectory));
+app.get(/.*/, function (req, res) {
+    res.sendFile(path.join(__dirname, staticDirectory, "index.html"));
 });
 
 app.listen(port, () => {
