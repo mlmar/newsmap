@@ -25,6 +25,12 @@ export default defineConfig({
     },
     build: {
         outDir: '../server/dist',
-        emptyOutDir: true
-    }
+        emptyOutDir: true,
+        commonjsOptions: {
+            transformMixedEsModules: true, // Helps with Leaflet's mixed module style
+        }
+    },
+    define: {
+        exports: {},
+    },
 })
