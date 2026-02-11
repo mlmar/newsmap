@@ -4,7 +4,7 @@ import { LMap, LTileLayer } from '@vue-leaflet/vue-leaflet';
 import { useNews } from '@/composables/useNews';
 import LoadingOverlay from '@/components/LoadingOverlay.vue';
 import NewsMarker from '@/components/NewsMarker.vue';
-import type { NewsFeature } from '@/types/News';
+import type { MarkerData } from '@/types/MarkerData';
 
 // News state
 const { data, isLoading, fetch } = useNews();
@@ -15,17 +15,16 @@ const mapRef: Ref<InstanceType<typeof LMap> | null> = ref(null);
 const zoom: Ref<number> = ref(5);
 const center: Ref<[number, number]> = ref([37, -97]);
 
-const visibleData: Ref<NewsFeature[]> = ref([]);
+const visibleData: Ref<MarkerData[]> = ref([]);
 function updateMarkers() {
     // Ensures that only articles within the view box are being rendered
     const map = mapRef.value?.leafletObject;
     if (map && data.value) {
         // If map exists
         const bounds = map.getBounds();
-        visibleData.value = data.value.features.filter((item) => {
+        visibleData.value = data.value.filter((item) => {
             // Filter for articles that appear within view
-            const [long, lat] = item.geometry.coordinates;
-            return bounds.contains([lat, long]);
+            return bounds.contains(item.coordinates);
         });
     }
 }
@@ -47,10 +46,10 @@ onMounted(async () => {
             @moveend="updateMarkers"
         >
             <LTileLayer :url="url" layer-type="base" name="OpenStreetMap" />
-            <NewsMarker v-for="(item, i) in visibleData" :key="item.properties.url + i" :item="item" />
+            <NewsMarker v-for="item in visibleData" :key="item.coordinates.join()" v-bind="item" />
         </LMap>
     </div>
-    <LoadingOverlay :visible="isLoading">Loading Data</LoadingOverlay>
+    <LoadingOverlay :visible="isLoading" />
 </template>
 
 <style scoped></style>

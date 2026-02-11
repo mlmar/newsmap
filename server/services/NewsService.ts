@@ -1,11 +1,14 @@
 
-const BASE_URL = 'https://api.gdeltproject.org/api/v1/gkg_geojson';
+import { type News } from '../../client/src/types/News.js'
+const BASE_URL = 'https://api.gdeltproject.org/api/v2/geo/geo'
 
 export class NewsService {
-    static async get() {
+    static async get(): Promise<News> {
         try {
             const params = new URLSearchParams({
-                OUTPUTFIELDS: 'url,name,sharingimage,tone,lang'
+                query: 'sourcelang:english',
+                mode: 'pointdata',
+                format: 'geojson'
             })
             const res = await fetch(BASE_URL + '?' + params.toString());
             const json = await res.json();

@@ -1,7 +1,8 @@
-import { type News } from "@/types/News";
+import type { MarkerData } from "@/types/MarkerData";
+import { type News, type NewsFeature } from "@/types/News";
 import { ref, type Ref } from "vue";
 
-const data: Ref<News | null> = ref(null);
+const data: Ref<MarkerData[]> = ref([]);
 const isLoading: Ref<boolean> = ref(false);
 
 /**
@@ -13,7 +14,8 @@ export function useNews() {
             return;
         }
         isLoading.value = true;
-        data.value = await fetchNews();
+        const news = await fetchNews();
+        data.value = news.features.map(getMarkerData);
         isLoading.value = false;
     }
 
@@ -34,4 +36,23 @@ async function fetchNews(): Promise<News> {
     const res = await fetch(BASE_URL + '/news');
     const json = await res.json();
     return json as News;
+}
+
+function getMarkerData(feature: NewsFeature): MarkerData {
+    const coordinates: [number, number] = [feature.geometry.coordinates[1], feature.geometry.coordinates[0]];
+
+    // Extract title and url from HTML string in API resposne
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(feature.properties.html, 'text/html');
+    const anchorElement = [...doc.body.querySelectorAll('a')].at(-1);
+    const title = anchorElement?.title;
+    const url = anchorElement?.href;
+
+    return {
+        location: feature.properties.name,
+        coordinates,
+        title,
+        url,
+        imageUrl: feature.properties.shareimage
+    }
 }

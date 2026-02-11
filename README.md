@@ -9,8 +9,8 @@ View news articles on a world map.
     - TailwindCSS
     - Vite
 - Backend built in Node and TypeScript
-    - `/news` Endpoint for fetching from GKG Geojson
-      `https://api.gdeltproject.org/api/v1/gkg_geojson`
+    - `/news` Endpoint for fetching from GDELT Project
+      `ttps://api.gdeltproject.org/api/v2/geo/geo`
 
 ## Installation
 

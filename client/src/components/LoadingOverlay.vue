@@ -5,14 +5,35 @@ const props = defineProps<{
 </script>
 
 <template>
-    <label class="loading-overlay flex fixed text-white text-5xl text-shadow-lg" v-if="props.visible"> <slot></slot> </label>
+    <div class="loading-overlay flex fixed items-center justify-center" v-if="props.visible">
+        <label class="flex fixed text-white text-5xl"></label>
+        <slot></slot>
+    </div>
 </template>
 
 <style scoped>
 .loading-overlay {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    --border-size: 0.3em;
+    width: 100%;
+    height: 100%;
     z-index: 9999;
+
+    label {
+        border: var(--border-size) solid white;
+        height: 3em;
+        width: 3em;
+        border-radius: 100%;
+        border-top: solid var(--border-size) transparent;
+        animation: spin infinite 1s forwards linear;
+    }
+}
+
+@keyframes spin {
+    0% {
+        rotate: 0deg;
+    }
+    100% {
+        rotate: 360deg;
+    }
 }
 </style>

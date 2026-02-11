@@ -13,12 +13,9 @@ export type NewsFeature = {
         ]
     },
     properties: {
-        urlpubtimedate: string,
         name: string,
-        urltone: number,
-        urllangcode: string,
-        urlsocialimage: string,
-        url: string,
-        mentionedthemes: string
+        count: string,
+        shareimage: string,
+        html: string
     }
 }
