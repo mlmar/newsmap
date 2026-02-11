@@ -10,7 +10,7 @@ View news articles on a world map.
     - Vite
 - Backend built in Node and TypeScript
     - `/news` Endpoint for fetching from GDELT Project
-      `ttps://api.gdeltproject.org/api/v2/geo/geo`
+      `https://api.gdeltproject.org/api/v2/geo/geo`
 
 ## Installation
 
@@ -20,4 +20,7 @@ View news articles on a world map.
 
 ## Development
 
-Run `make` in the root directory to compose `client/Dockerfile` and `server/Dockerfile`
+- All types are shared and imported from `@newsmap/types`
+  `import type { <Resource> } from '@newsmap/types';`
+
+- Run `make` in the root directory to compose `client/Dockerfile` and `server/Dockerfile`
