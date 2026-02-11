@@ -1,6 +1,22 @@
 {
     "compilerOptions": {
+        /* Base Options */
+        "target": "ES2023",
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "lib": ["ES2023"], // No DOM here for Node!
+
+        /* Path Mapping */
+        "baseUrl": ".",
+        "rootDir": "src",
+        "outDir": "dist",
+
+        /* Interop & Type Checking */
         "esModuleInterop": true,
-        "baseUrl": "."
-    }
+        "forceConsistentCasingInFileNames": true,
+        "strict": true, // Highly recommended for catching bugs early
+        "skipLibCheck": true
+    },
+    "include": ["src/**/*"],
+    "exclude": ["node_modules"]
 }

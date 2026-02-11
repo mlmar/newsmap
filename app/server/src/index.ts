@@ -1,7 +1,7 @@
 import path from 'node:path';
 import express from 'express';
 import cors from 'cors';
-import { NewsService } from './services/NewsService.js';
+import newsRouter from 'src/api/NewsRoutes.js';
 import { fileURLToPath } from 'node:url';
 
 const app = express();
@@ -14,12 +14,9 @@ app.use(cors({
     origin: '*'
 }))
 
-app.get('/news', async (req, res) => {
-    const news = await NewsService.get();
-    res.send(news);
-});
+app.use('/news', newsRouter);
 
-const staticDirectory = '/dist';
+const staticDirectory = '../dist';
 app.use(express.static(path.join(__dirname, staticDirectory)));
 app.get("/", function (req, res) {
     res.sendFile(path.join(__dirname, staticDirectory, "index.html"));

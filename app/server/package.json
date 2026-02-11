@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "dev": "npx tsx watch --inspect=0.0.0.0:9229 index.ts",
+        "dev": "npx tsx watch --inspect=0.0.0.0:9229 src/index.ts",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
@@ -13,11 +13,14 @@
     "type": "module",
     "dependencies": {
         "cors": "^2.8.6",
-        "express": "^5.2.1"
+        "express": "^5.2.1",
+        "jsdom": "^28.0.0"
     },
     "devDependencies": {
         "@newsmap/types": "file:../types",
+        "@types/cors": "^2.8.19",
         "@types/express": "^5.0.6",
+        "@types/jsdom": "^27.0.0",
         "typescript": "^5.9.3"
     }
 }

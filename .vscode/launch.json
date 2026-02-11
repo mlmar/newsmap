@@ -7,18 +7,19 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "Launch Chrome against localhost",
+            "name": "Launch Chrome against Docker Client",
             "url": "http://localhost:3000",
-            "webRoot": "${workspaceFolder}/client"
+            "webRoot": "${workspaceFolder}/app/client"
         },
         {
-            "name": "Attach to Node",
+            "name": "Attach to Docker Node Server",
             "port": 9229,
             "request": "attach",
+            "restart": true,
             "skipFiles": ["<node_internals>/**"],
             "type": "node",
-            "localRoot": "${workspaceFolder}/server",
-            "remoteRoot": "/app"
+            "localRoot": "${workspaceFolder}/app/server",
+            "remoteRoot": "/app/server"
         }
     ]
 }

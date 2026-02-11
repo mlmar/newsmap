@@ -1,11 +1,15 @@
-FROM node:24
+FROM node:24-slim
 
-WORKDIR /app
 
-COPY package*.json ./
+WORKDIR /app/server
+COPY app/server/package*.json .
 RUN npm install
 
-COPY . .
+WORKDIR /app
+COPY app/types ./types
+
+WORKDIR /app/server
+COPY app/server .
 
 EXPOSE 3300
 CMD ["npm", "run", "dev", "--", "--host"]

@@ -1,18 +1,23 @@
 services:
     server:
-        build: ./app/server
+        build:
+            context: .
+            dockerfile: ./app/server/Dockerfile
         ports:
             - "3300:3300"
             - "9229:9229"
         volumes:
-            - "./app/server:/app"
+            - "./app/server:/app/server"
+            - "/app/server/node_modules"
 
     client:
-        build: ./app/client
+        build:
+            context: .
+            dockerfile: ./app/client/Dockerfile
         ports:
             - "3000:3000"
         volumes:
-            - "./app/client:/app"
-            - "/app/node_modules"
+            - "./app/client:/app/client"
+            - "/app/client/node_modules"
         depends_on:
             - server
