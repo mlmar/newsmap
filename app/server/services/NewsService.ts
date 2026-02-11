@@ -1,5 +1,5 @@
 
-import { type News } from '../../client/src/types/News.js'
+import { type News } from '@newsmap/types'
 const BASE_URL = 'https://api.gdeltproject.org/api/v2/geo/geo'
 
 export class NewsService {

@@ -1,18 +1,18 @@
 services:
     server:
-        build: ./server
+        build: ./app/server
         ports:
             - "3300:3300"
             - "9229:9229"
         volumes:
-            - "./server:/app"
+            - "./app/server:/app"
 
     client:
-        build: ./client
+        build: ./app/client
         ports:
             - "3000:3000"
         volumes:
-            - "./client:/app"
+            - "./app/client:/app"
             - "/app/node_modules"
         depends_on:
             - server

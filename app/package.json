@@ -1,0 +1,9 @@
+{
+    "name": "newsmap",
+    "private": true,
+    "workspaces": [
+        "client",
+        "server",
+        "types"
+    ]
+}

@@ -4,7 +4,7 @@ import { LMap, LTileLayer } from '@vue-leaflet/vue-leaflet';
 import { useNews } from '@/composables/useNews';
 import LoadingOverlay from '@/components/LoadingOverlay.vue';
 import NewsMarker from '@/components/NewsMarker.vue';
-import type { MarkerData } from '@/types/MarkerData';
+import type { MarkerData } from '@newsmap/types';
 
 // News state
 const { data, isLoading, fetch } = useNews();
@@ -46,7 +46,7 @@ onMounted(async () => {
             @moveend="updateMarkers"
         >
             <LTileLayer :url="url" layer-type="base" name="OpenStreetMap" />
-            <NewsMarker v-for="item in visibleData" :key="item.coordinates.join()" v-bind="item" />
+            <NewsMarker v-for="item in visibleData" :key="item.url + item.coordinates.join()" v-bind="item" />
         </LMap>
     </div>
     <LoadingOverlay :visible="isLoading" />

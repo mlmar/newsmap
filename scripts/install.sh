@@ -1,3 +1,3 @@
 cd ..
-npm install --prefix ./client
-npm install --prefix ./server
+npm install --prefix ./app/client
+npm install --prefix ./app/server

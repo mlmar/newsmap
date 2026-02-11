@@ -7,3 +7,6 @@ install: # Install npm dependencies
 	
 clean: # Clean up docker containers
 	cd scripts && ./clean.sh
+
+build: # Run client build
+	cd scripts && ./build.sh

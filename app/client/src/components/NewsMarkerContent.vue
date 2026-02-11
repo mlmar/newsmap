@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { MarkerData } from '@/types/MarkerData';
+import type { MarkerData } from '@newsmap/types/MarkerData';
 
 const props = defineProps<MarkerData>();
 </script>

@@ -1,5 +1,4 @@
-import type { MarkerData } from "@/types/MarkerData";
-import { type News, type NewsFeature } from "@/types/News";
+import type { MarkerData, News, NewsFeature } from "@newsmap/types";
 import { ref, type Ref } from "vue";
 
 const data: Ref<MarkerData[]> = ref([]);

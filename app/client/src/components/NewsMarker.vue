@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import NewsMarkerContent from '@/components/NewsMarkerContent.vue';
 import { LMarker, LPopup } from '@vue-leaflet/vue-leaflet';
-import type { MarkerData } from '@/types/MarkerData';
+import type { MarkerData } from '@newsmap/types';
 
 const props = defineProps<MarkerData>();
 </script>

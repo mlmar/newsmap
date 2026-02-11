@@ -1,7 +1,0 @@
-{
-    "compilerOptions": {
-        "types": ["node"],
-        "module": "NodeNext",
-        "esModuleInterop": true
-    }
-}

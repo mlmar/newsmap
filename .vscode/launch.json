@@ -5,20 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Attach",
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch Chrome against localhost",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}/client"
+        },
+        {
+            "name": "Attach to Node",
             "port": 9229,
             "request": "attach",
             "skipFiles": ["<node_internals>/**"],
             "type": "node",
             "localRoot": "${workspaceFolder}/server",
             "remoteRoot": "/app"
-        },
-        {
-            "type": "chrome",
-            "request": "launch",
-            "name": "Launch Chrome against localhost",
-            "url": "http://localhost:3000",
-            "webRoot": "${workspaceFolder}/client"
         }
     ]
 }

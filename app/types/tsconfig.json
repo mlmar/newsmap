@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "ESNext",
+        "moduleResolution": "bundler", // Best for Vite/Modern Node
+        "strict": true, // Ensures high-quality shared types
+        "declaration": true, // Generates .d.ts files
+        "declarationMap": true, // Allows "Go to Definition" to work in IDEs
+        "skipLibCheck": true,
+        "isolatedModules": true,
+        "esModuleInterop": true,
+        "composite": true, // Required if using TS Project References
+        "rootDir": "."
+    },
+    "include": ["**/*.ts"]
+}
