@@ -1,7 +1,7 @@
 import path from 'node:path';
 import express from 'express';
 import cors from 'cors';
-import newsRouter from 'src/api/NewsRoutes.js';
+import newsRouter from './api/NewsRoutes.js';
 import { fileURLToPath } from 'node:url';
 
 const app = express();

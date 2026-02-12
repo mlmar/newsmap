@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { NewsService } from "src/services/NewsService.js";
+import { NewsService } from "../services/NewsService.js";
 
 const router = Router();
 
