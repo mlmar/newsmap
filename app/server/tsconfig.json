@@ -6,6 +6,10 @@
         "moduleResolution": "NodeNext",
         "lib": ["ES2023"], // No DOM here for Node!
 
+        /* Path Mapping */
+        "rootDir": "src",
+        "outDir": "dist",
+
         /* Interop & Type Checking */
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
