@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import newsRouter from './api/NewsRoutes.js';
+import newsRouter from './src/api/NewsRoutes.js';
 
 const app = express();
 const port = 3300;
