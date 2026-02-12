@@ -2,7 +2,7 @@
     "name": "server",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "src/index.js",
     "scripts": {
         "build": "tsc",
         "dev": "npx tsx watch --inspect=0.0.0.0:9229 src/index.ts",
