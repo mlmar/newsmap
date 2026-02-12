@@ -12,9 +12,12 @@ export class NewsService {
             const params = new URLSearchParams({
                 query: 'sourcelang:english',
                 mode: 'pointdata',
-                format: 'geojson'
+                format: 'imagegeojson',
+                sortby: 'datedesc',
+                timespan: '1h'
             })
-            const res = await fetch(BASE_URL + '?' + params.toString());
+            const url = BASE_URL + '?' + params.toString();
+            const res = await fetch(url);
             const json: News = await res.json() as News;
             const markerData = json.features.map(getMarkerData);
             return markerData;
@@ -33,18 +36,22 @@ export class NewsService {
 function getMarkerData(feature: NewsFeature): MarkerData {
     const coordinates: [number, number] = [feature.geometry.coordinates[1], feature.geometry.coordinates[0]];
 
-    // Extract title and url from HTML string in API resposne
+    // Extract article titles and urls from HTML string in API resposne
     const dom = new JSDOM(feature.properties.html);
-    const anchorElements: HTMLAnchorElement[] = Array.from(dom.window.document.querySelectorAll('a'));
-    const anchorElement = anchorElements.at(-1);
-    const title = anchorElement?.title;
-    const url = anchorElement?.href;
+    const anchorElements = Array.from(dom.window.document.querySelectorAll('a'));
 
     return {
+        count: feature.properties.count,
         location: feature.properties.name,
         coordinates,
-        title,
-        url,
-        imageUrl: feature.properties.shareimage
+        imageUrl: feature.properties.shareimage,
+        articles: anchorElements.map(parseAnchorElement)
+    }
+}
+
+function parseAnchorElement(anchorElement: HTMLAnchorElement): { title: string, url: string } {
+    return {
+        title: anchorElement?.title,
+        url: anchorElement?.href
     }
 }

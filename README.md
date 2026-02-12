@@ -9,8 +9,11 @@ View news articles on a world map.
     - TailwindCSS
     - Vite
 - Backend built in Node and TypeScript
-    - `/news` Endpoint for fetching from GDELT Project
-      `https://api.gdeltproject.org/api/v2/geo/geo`
+    - `/news` Endpoint for fetching from GDELT Project Geo 2 API
+        ```
+        https://blog.gdeltproject.org/gdelt-geo-2-0-api-debuts/
+        https://api.gdeltproject.org/api/v2/geo/geo
+        ```
 
 ## Installation
 
@@ -20,7 +23,7 @@ View news articles on a world map.
 
 ## Development
 
-- All types are shared and imported from `@newsmap/types`
+- All shared types are stored in `app/types` and imported from `@newsmap/types`
   `import type { <Resource> } from '@newsmap/types';`
 
-- Run `make` in the root directory to compose `client/Dockerfile` and `server/Dockerfile`
+- Run `make` in the root directory to compose `app/client/Dockerfile` and `app/server/Dockerfile`

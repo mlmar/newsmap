@@ -5,7 +5,7 @@ const props = defineProps<{
 </script>
 
 <template>
-    <div class="loading-overlay flex fixed items-center justify-center" v-if="props.visible">
+    <div class="loading-overlay flex fixed items-center justify-center" v-if="visible">
         <label class="flex fixed text-white text-5xl"></label>
         <slot></slot>
     </div>

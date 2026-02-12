@@ -1,20 +1,29 @@
 <script setup lang="ts">
-import type { MarkerData } from '@newsmap/types/MarkerData';
+import type { MarkerData } from '@newsmap/types';
 
 const props = defineProps<MarkerData>();
+
+function handleClick() {
+    console.log(props);
+}
 </script>
 
 <template>
-    <article class="flex flex-col gap-2">
-        <h2 class="text-nowrap font-semibold">
-            {{ props.location }}
+    <article class="flex flex-col gap-2" @click="handleClick">
+        <h2 class="text-lg text-nowrap font-bold text-ellipsis overflow-hidden" :title="location">
+            {{ location }}
         </h2>
-        <label class="italic font-normal"> {{ props.coordinates[0] }}, {{ props.coordinates[1] }} </label>
-        <figure class="flex flex-col w-full max-h-10em gap-2 overflow-hidden">
-            <img class="object-cover" :src="props.imageUrl" :alt="title" loading="lazy" />
-            <label> {{ props.title }}</label>
+        <figure class="flex flex-col w-full max-h-[15em] gap-2 overflow-hidden">
+            <img class="object-cover" :src="imageUrl" :alt="imageUrl" loading="lazy" />
         </figure>
-        <a :href="url" class="text-nowrap text-ellipsis overflow-hidden"> {{ props.url }}</a>
+        <section class="flex flex-col gap-2">
+            <h3 class="font-semibold">Articles</h3>
+            <ul class="flex flex-col gap-2 list-disc list-inside">
+                <li v-for="article in articles" class="text-nowrap text-ellipsis overflow-hidden" :key="article.url">
+                    <a class="text-nowrap hover:underline" :href="article.url" :title="article.title"> {{ article.title }}</a>
+                </li>
+            </ul>
+        </section>
     </article>
 </template>
 

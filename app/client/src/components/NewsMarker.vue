@@ -7,7 +7,7 @@ const props = defineProps<MarkerData>();
 </script>
 
 <template>
-    <LMarker :lat-lng="props.coordinates">
+    <LMarker :lat-lng="coordinates" :radius="count / zoom">
         <LPopup>
             <NewsMarkerContent v-bind="props" />
         </LPopup>

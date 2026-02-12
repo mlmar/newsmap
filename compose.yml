@@ -7,8 +7,9 @@ services:
             - "3300:3300"
             - "9229:9229"
         volumes:
-            - "./app/server:/app/server"
-            - "/app/server/node_modules"
+            - ./app/server:/app/server
+            - /app/server/node_modules
+            - ./types:/types
 
     client:
         build:
@@ -17,7 +18,8 @@ services:
         ports:
             - "3000:3000"
         volumes:
-            - "./app/client:/app/client"
-            - "/app/client/node_modules"
+            - ./app/client:/app/client
+            - /app/client/node_modules
+            - ./types:/types
         depends_on:
             - server

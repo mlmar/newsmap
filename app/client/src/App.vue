@@ -15,7 +15,7 @@ const mapRef: Ref<InstanceType<typeof LMap> | null> = ref(null);
 const zoom: Ref<number> = ref(5);
 const center: Ref<[number, number]> = ref([37, -97]);
 
-const visibleData: Ref<MarkerData[]> = ref([]);
+const visibleData: Ref<MarkerData[]> = ref([]); // Not using compute because mapRef.value.leafletObject is not reactive
 function updateMarkers() {
     // Ensures that only articles within the view box are being rendered
     const map = mapRef.value?.leafletObject;
@@ -36,7 +36,7 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div style="height: 100vh; width: 100vw">
+    <main class="h-screen w-screen">
         <LMap
             ref="mapRef"
             v-model:zoom="zoom"
@@ -44,11 +44,12 @@ onMounted(async () => {
             :use-global-leaflet="false"
             :options="{ worldCopyJump: true }"
             @moveend="updateMarkers"
+            @ready="updateMarkers"
         >
             <LTileLayer :url="url" layer-type="base" name="OpenStreetMap" />
-            <NewsMarker v-for="item in visibleData" :key="item.url + item.coordinates.join()" v-bind="item" />
+            <NewsMarker v-for="item in visibleData" :key="item.coordinates.join()" v-bind="item" />
         </LMap>
-    </div>
+    </main>
     <LoadingOverlay :visible="isLoading" />
 </template>
 

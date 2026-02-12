@@ -1,7 +1,10 @@
 export type MarkerData = {
+    count: number,
     location: string,
     coordinates: [number, number],
-    title: string | undefined,
-    url: string | undefined,
     imageUrl: string | undefined
+    articles: {
+        title: string | undefined,
+        url: string | undefined
+    }[]
 }
