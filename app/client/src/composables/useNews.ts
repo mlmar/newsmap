@@ -29,7 +29,7 @@ export function useNews() {
  * @returns {MapData[]}
  */
 async function fetchNews(): Promise<MapData[]> {
-    const res = await fetch(import.meta.env.SERVER_URL + '/news');
+    const res = await fetch(import.meta.env.VITE_SERVER_URL + '/news');
     const json = await res.json();
     return json;
 }
