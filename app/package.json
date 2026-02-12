@@ -5,5 +5,8 @@
         "client",
         "server",
         "types"
-    ]
+    ],
+    "scripts": {
+        "build": "npm run build -w client"
+    }
 }
