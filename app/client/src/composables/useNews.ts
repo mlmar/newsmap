@@ -24,14 +24,12 @@ export function useNews() {
     }
 }
 
-const BASE_URL = import.meta.env.DEV ? 'http://localhost:3300' : '';
-
 /**
  * Fetches geo data for worldwide news from server url
  * @returns {MapData[]}
  */
 async function fetchNews(): Promise<MapData[]> {
-    const res = await fetch(BASE_URL + '/news');
+    const res = await fetch(import.meta.env.SERVER_URL + '/news');
     const json = await res.json();
     return json;
 }
