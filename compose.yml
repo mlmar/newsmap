@@ -10,7 +10,6 @@ services:
             - ./app/server:/app/server
             - /app/server/node_modules
             - ./types:/types
-
     client:
         build:
             context: .
@@ -23,3 +22,6 @@ services:
             - ./types:/types
         depends_on:
             - server
+        environment:
+            - DEV
+            - PORT
