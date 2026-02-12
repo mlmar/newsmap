@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import { useNews } from '@/composables/useNews';
+import { useVisibleMapData } from '@/composables/useVisibleMapData';
 import LoadingOverlay from '@/components/LoadingOverlay.vue';
 import NewsMap from '@/features/NewsMap.vue';
-import { useVisibleMapData } from '@/composables/useVisibleMapData';
+import SidebarMenu from '@/features/SidebarMenu.vue';
+import NewsMapControl from '@/features/NewsMapControl.vue';
 
 // Data
 const { data, isLoading, fetch } = useNews();
@@ -15,6 +17,10 @@ onMounted(async () => {
 </script>
 
 <template>
+    <SidebarMenu>
+        <h1 class="font-bold text-3xl">News Map</h1>
+        <NewsMapControl :data="data" :visible-map-data="visibleMapData" />
+    </SidebarMenu>
     <main class="h-screen w-screen">
         <NewsMap :data="visibleMapData" @view-change="refreshMarkers" />
     </main>
