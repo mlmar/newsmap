@@ -16,7 +16,7 @@ app.use(cors({
 
 app.use('/news', newsRouter);
 
-const staticDirectory = '../dist';
+const staticDirectory = '../../client/dist';
 app.use(express.static(path.join(__dirname, staticDirectory)));
 app.get("/", function (req, res) {
     res.sendFile(path.join(__dirname, staticDirectory, "index.html"));
