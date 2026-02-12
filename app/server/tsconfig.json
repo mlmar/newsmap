@@ -7,7 +7,7 @@
         "lib": ["ES2023"],
 
         // Path Mapping
-        "rootDir": "src",
+        "rootDir": ".",
         "outDir": "dist",
 
         // Interop & Type Checking
@@ -16,6 +16,6 @@
         "strict": true,
         "skipLibCheck": true
     },
-    "include": ["src/**/*"],
+    "include": ["index.ts", "src/**/*"],
     "exclude": ["node_modules"]
 }
