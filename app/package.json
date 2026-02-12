@@ -9,6 +9,6 @@
         "types"
     ],
     "scripts": {
-        "build": "npm run build -w client"
+        "build": "npm run build -w client && npm run build -w server"
     }
 }
