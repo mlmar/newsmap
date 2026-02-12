@@ -12,9 +12,7 @@ app.use(cors({
 
 app.use('/news', newsRouter);
 
-if (Boolean(process.env.DEV)) {
-    const port = 3300;
-    app.listen(port, () => {
-        return console.log(`Express is listening at http://localhost:${port}`);
-    });
-}
+const port = 3300;
+app.listen(port, () => {
+    return console.log(`Express is listening at http://localhost:${port}`);
+});
