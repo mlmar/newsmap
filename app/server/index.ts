@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import newsRouter from './src/api/NewsRoutes.ts';
+import newsRouter from './src/api/NewsRoutes';
 
 dotenv.config();
 const app = express();
