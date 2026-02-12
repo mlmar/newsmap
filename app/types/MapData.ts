@@ -1,4 +1,4 @@
-export type MarkerData = {
+export type MapData = {
     count: number,
     location: string,
     coordinates: [number, number],

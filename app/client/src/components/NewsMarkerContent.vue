@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { MarkerData } from '@newsmap/types';
+import type { MapData } from '@newsmap/types';
 
-const props = defineProps<MarkerData>();
+const props = defineProps<MapData>();
 
 function handleClick() {
     console.log(props);

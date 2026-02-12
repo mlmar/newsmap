@@ -1,21 +1,17 @@
 <script setup lang="ts">
 import { onMounted, ref, type Ref } from 'vue';
-import { LMap, LTileLayer } from '@vue-leaflet/vue-leaflet';
 import { useNews } from '@/composables/useNews';
 import LoadingOverlay from '@/components/LoadingOverlay.vue';
-import NewsMarker from '@/components/NewsMarker.vue';
-import type { MarkerData } from '@newsmap/types';
+import type { MapData } from '@newsmap/types';
+import NewsMap from '@/features/NewsMap.vue';
+import { useMapControls } from '@/composables/useMapControl';
 
-// News state
+// Data
 const { data, isLoading, fetch } = useNews();
+const visibleData: Ref<MapData[]> = ref([]); // Not using compute because mapRef.value.leafletObject is not reactive
 
-// Map state
-const url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-const mapRef: Ref<InstanceType<typeof LMap> | null> = ref(null);
-const zoom: Ref<number> = ref(5);
-const center: Ref<[number, number]> = ref([37, -97]);
-
-const visibleData: Ref<MarkerData[]> = ref([]); // Not using compute because mapRef.value.leafletObject is not reactive
+// Map markers
+const { mapRef } = useMapControls();
 function updateMarkers() {
     // Ensures that only articles within the view box are being rendered
     const map = mapRef.value?.leafletObject;
@@ -37,18 +33,7 @@ onMounted(async () => {
 
 <template>
     <main class="h-screen w-screen">
-        <LMap
-            ref="mapRef"
-            v-model:zoom="zoom"
-            :center="center"
-            :use-global-leaflet="false"
-            :options="{ worldCopyJump: true }"
-            @moveend="updateMarkers"
-            @ready="updateMarkers"
-        >
-            <LTileLayer :url="url" layer-type="base" name="OpenStreetMap" />
-            <NewsMarker v-for="item in visibleData" :key="item.coordinates.join()" v-bind="item" />
-        </LMap>
+        <NewsMap :data="visibleData" @view-change="updateMarkers" />
     </main>
     <LoadingOverlay :visible="isLoading" />
 </template>

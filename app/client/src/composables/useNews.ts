@@ -1,7 +1,7 @@
-import type { MarkerData } from "@newsmap/types";
+import type { MapData } from "@newsmap/types";
 import { ref, type Ref } from "vue";
 
-const data: Ref<MarkerData[]> = ref([]);
+const data: Ref<MapData[]> = ref([]);
 const isLoading: Ref<boolean> = ref(false);
 
 /**
@@ -28,9 +28,9 @@ const BASE_URL = import.meta.env.DEV ? 'http://localhost:3300' : '';
 
 /**
  * Fetches geo data for worldwide news from server url
- * @returns {MarkerData[]}
+ * @returns {MapData[]}
  */
-async function fetchNews(): Promise<MarkerData[]> {
+async function fetchNews(): Promise<MapData[]> {
     const res = await fetch(BASE_URL + '/news');
     const json = await res.json();
     return json;

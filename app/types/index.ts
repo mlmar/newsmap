@@ -1,2 +1,2 @@
-export * from './MarkerData';
+export * from './MapData';
 export * from './News';

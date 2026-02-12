@@ -1,13 +1,13 @@
 import { JSDOM } from 'jsdom';
-import { MarkerData, NewsFeature, type News } from '@newsmap/types'
+import { MapData, NewsFeature, type News } from '@newsmap/types'
 const BASE_URL = 'https://api.gdeltproject.org/api/v2/geo/geo'
 
 export class NewsService {
     /**
-     * Fetches list of news features with geo json information and converts items to MarkerData
-     * @returns {MarkerData[]} 
+     * Fetches list of news features with geo json information and converts items to MapData
+     * @returns {MapData[]} 
      */
-    static async get(): Promise<MarkerData[]> {
+    static async get(): Promise<MapData[]> {
         try {
             const params = new URLSearchParams({
                 query: 'sourcelang:english',
@@ -19,8 +19,8 @@ export class NewsService {
             const url = BASE_URL + '?' + params.toString();
             const res = await fetch(url);
             const json: News = await res.json() as News;
-            const markerData = json.features.map(getMarkerData);
-            return markerData;
+            const MapData = json.features.map(getMapData);
+            return MapData;
         } catch (error) {
             console.error(error);
             throw new Error('Failed to fetch data')
@@ -29,11 +29,11 @@ export class NewsService {
 }
 
 /**
- * Cleans feature data and transforms to MarkerData
+ * Cleans feature data and transforms to MapData
  * @param {NewsFeature} feature 
- * @returns {MarkerData}
+ * @returns {MapData}
  */
-function getMarkerData(feature: NewsFeature): MarkerData {
+function getMapData(feature: NewsFeature): MapData {
     const coordinates: [number, number] = [feature.geometry.coordinates[1], feature.geometry.coordinates[0]];
 
     // Extract article titles and urls from HTML string in API resposne
