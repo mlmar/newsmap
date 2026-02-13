@@ -17,8 +17,7 @@ onMounted(async () => {
 </script>
 
 <template>
-    <SidebarMenu>
-        <h1 class="font-bold text-3xl">News Map</h1>
+    <SidebarMenu title="News Map">
         <NewsMapControl :data="data" :visible-map-data="visibleMapData" />
     </SidebarMenu>
     <main class="h-screen w-screen">
