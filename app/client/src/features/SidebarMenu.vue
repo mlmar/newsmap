@@ -12,13 +12,13 @@ const isCollapsed = ref<boolean>(false);
     <Transition name="collapse">
         <aside
             v-if="!isCollapsed"
-            class="flex flex-col bg-white gap-2 p-4 z-9999 min-w-[20rem] w-full h-full fixed md:relative md:w-[20rem] relative"
+            class="flex flex-col bg-white gap-2 p-4 z-9999 min-w-[20rem] w-full h-full fixed md:relative md:w-[20rem] relative shadow-md"
         >
             <header class="flex justify-between align-center">
                 <h1 class="font-bold text-3xl">{{ title }}</h1>
             </header>
             <slot></slot>
-            <button class="bg-white cursor-pointer collapse-button" @click="isCollapsed = !isCollapsed">&#10094;</button>
+            <button class="bg-white cursor-pointer collapse-button shadow-md" @click="isCollapsed = !isCollapsed">&#10094;</button>
         </aside>
     </Transition>
     <Transition name="expand">
@@ -39,23 +39,19 @@ const isCollapsed = ref<boolean>(false);
 
 .collapse-button,
 .expand-button {
-    height: 4em;
+    height: 3em;
     width: 1em;
-    font-size: 1.5em;
-    border-top-right-radius: 100%;
-    border-bottom-right-radius: 100%;
-    top: 20%;
+    font-size: 1.2em;
+    bottom: 0;
 }
 
 .collapse-button {
     position: absolute;
     left: 100%;
-    transform: translateY(-50%);
 }
 
 .expand-button {
     position: absolute;
     left: 0;
-    transform: translateY(-50%);
 }
 </style>

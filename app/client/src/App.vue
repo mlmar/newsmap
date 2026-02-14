@@ -6,13 +6,20 @@ import LoadingOverlay from '@/components/LoadingOverlay.vue';
 import NewsMap from '@/features/NewsMap.vue';
 import SidebarMenu from '@/features/SidebarMenu.vue';
 import NewsMapControl from '@/features/NewsMapControl.vue';
+import { useMapControls } from '@/composables/useMapControl';
 
 // Data
 const { data, isLoading, fetch } = useNews();
 const { visibleMapData, refreshMarkers } = useVisibleMapData(data);
+const { mapRef } = useMapControls();
 onMounted(async () => {
     await fetch();
     refreshMarkers();
+    if (data.value[0]) {
+        // Fly to top trending location
+        const coordinates = data.value[0].coordinates;
+        mapRef.value?.leafletObject?.flyTo(coordinates);
+    }
 });
 </script>
 

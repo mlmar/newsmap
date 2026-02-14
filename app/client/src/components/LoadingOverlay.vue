@@ -6,7 +6,7 @@ defineProps<{
 
 <template>
     <div class="loading-overlay flex fixed items-center justify-center" v-if="visible">
-        <label class="flex fixed text-white text-5xl"></label>
+        <span class="flex fixed text-white text-5xl"></span>
         <slot></slot>
     </div>
 </template>
@@ -18,13 +18,14 @@ defineProps<{
     height: 100%;
     z-index: 9999;
 
-    label {
-        border: var(--border-size) solid white;
+    span {
+        border: var(--border-size) solid black;
         height: 3em;
         width: 3em;
         border-radius: 100%;
         border-top: solid var(--border-size) transparent;
         animation: spin infinite 1s forwards linear;
+        mix-blend-mode: multiply;
     }
 }
 

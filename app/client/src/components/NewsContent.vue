@@ -17,10 +17,10 @@ function handleClick() {
             <img class="object-cover" :src="imageUrl" :alt="imageUrl" loading="lazy" />
         </figure>
         <section class="flex flex-col gap-2">
-            <h3 class="font-semibold">Articles</h3>
-            <ul class="flex flex-col gap-2 list-disc list-inside">
-                <li v-for="article in articles" class="text-nowrap text-ellipsis overflow-hidden" :key="article.url">
-                    <a class="text-nowrap hover:underline" :href="article.url" :title="article.title"> {{ article.title }}</a>
+            <h3 class="font-semibold py-2 border-b-1">Articles</h3>
+            <ul class="flex flex-col gap-2">
+                <li v-for="article in articles" :key="article.url">
+                    <a class="hover:underline" :href="article.url" :title="article.title"> {{ article.title }}</a>
                 </li>
             </ul>
         </section>
