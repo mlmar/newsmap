@@ -40,7 +40,7 @@ const isCollapsed = ref<boolean>(false);
 .collapse-button,
 .expand-button {
     height: 3em;
-    width: 1em;
+    width: 2em;
     font-size: 1.2em;
     bottom: 0;
 }
@@ -51,7 +51,7 @@ const isCollapsed = ref<boolean>(false);
 }
 
 .expand-button {
-    position: absolute;
+    position: fixed;
     left: 0;
 }
 </style>
