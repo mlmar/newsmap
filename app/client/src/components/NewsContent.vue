@@ -18,7 +18,7 @@ function handleClick() {
         </figure>
         <section class="flex flex-col gap-2">
             <h3 class="font-semibold py-2 border-b-1">Articles</h3>
-            <ul class="flex flex-col gap-2">
+            <ul class="flex flex-col gap-2 list-decimal list-inside">
                 <li v-for="article in articles" :key="article.url">
                     <a class="hover:underline" :href="article.url" :title="article.title"> {{ article.title }}</a>
                 </li>
