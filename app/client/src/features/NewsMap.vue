@@ -1,20 +1,26 @@
 <script setup lang="ts">
 import NewsMarker from '@/components/NewsMarker.vue';
 import { useMapControls } from '@/composables/useMapControl';
-import type { MapData } from '@newsmap/types';
+import { useMapData } from '@/composables/useMapData';
+import { useMapRef } from '@/composables/useMapRef';
+import { useVisibleMapData } from '@/composables/useVisibleMapData';
 import { LMap, LTileLayer } from '@vue-leaflet/vue-leaflet';
 import { useResizeObserver } from '@vueuse/core';
 import { useTemplateRef } from 'vue';
 
-defineProps<{
-    data: MapData[];
-}>();
-
-const { mapRef, url, zoom, center } = useMapControls();
+const mapRef = useMapRef();
+const { url, zoom, center, flyToMarker } = useMapControls();
+const { data } = useMapData();
+const { data: visibleMapData, refreshMarkers } = useVisibleMapData();
 const mapContainer = useTemplateRef('map-container');
 useResizeObserver(mapContainer, () => {
     mapRef.value?.leafletObject?.invalidateSize();
 });
+
+function handleReady() {
+    refreshMarkers();
+    flyToMarker(data.value[0]?.coordinates);
+}
 </script>
 
 <template>
@@ -22,14 +28,14 @@ useResizeObserver(mapContainer, () => {
         <LMap
             ref="mapRef"
             v-model:zoom="zoom"
-            :center="center"
+            v-model:center="center"
             :use-global-leaflet="false"
             :options="{ worldCopyJump: true }"
-            @moveend="$emit('viewChange')"
-            @ready="$emit('viewChange')"
+            @moveend="refreshMarkers"
+            @ready="handleReady"
         >
             <LTileLayer :url="url" layer-type="base" name="OpenStreetMap" />
-            <NewsMarker v-for="item in data" :key="item.coordinates.join()" v-bind="item" />
+            <NewsMarker v-for="item in visibleMapData" :key="item.coordinates.join()" v-bind="item" />
         </LMap>
     </section>
 </template>

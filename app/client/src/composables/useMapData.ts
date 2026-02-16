@@ -1,13 +1,17 @@
 import type { MapData } from "@newsmap/types";
-import { ref, type Ref } from "vue";
+import { ref } from "vue";
 
-const data: Ref<MapData[]> = ref([]);
-const isLoading: Ref<boolean> = ref(false);
+const data = ref<MapData[]>([]);
+const isLoading = ref<boolean>(false);
 
 /**
  * Composable for returning news data, function for fetching data, and loading flag
  */
-export function useNews() {
+export function useMapData(): {
+    data: typeof data,
+    fetch: () => Promise<void>
+    isLoading: typeof isLoading,
+} {
     const fetch = async () => {
         if (isLoading.value) {
             return;

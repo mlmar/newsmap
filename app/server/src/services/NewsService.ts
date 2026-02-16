@@ -43,6 +43,7 @@ function getMapData(feature: NewsFeature): MapData {
     return {
         count: feature.properties.count,
         location: feature.properties.name,
+        label: feature.properties.name,
         coordinates,
         imageUrl: feature.properties.shareimage,
         articles: anchorElements.map(parseAnchorElement)
