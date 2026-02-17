@@ -1,10 +1,20 @@
 <script setup lang="ts">
+import HighlightText from '@/components/HighlightText.vue';
+import { useIsMobile } from '@/composables/useIsMobile';
 import { useMapControls } from '@/composables/useMapControl';
 import { useMapData } from '@/composables/useMapData';
+import { useSidebarMenuToggle } from '@/composables/useSidebarMenuToggle';
 import { useVisibleMapData } from '@/composables/useVisibleMapData';
 import { DisplayModeId, type DisplayMode } from '@/types/DisplayMode';
 import type { MapData } from '@newsmap/types';
 import { computed, ref } from 'vue';
+
+// From SidebarMenu
+const isMobile = useIsMobile();
+const toggleCollapse = useSidebarMenuToggle();
+
+// Search filter
+const searchFilter = ref<string>('');
 
 // Display Mode State
 const displayMode = ref<DisplayModeId>(DisplayModeId.locations);
@@ -24,10 +34,11 @@ const listData = computed<MapData[]>(() => {
         return [];
     }
 
+    let filteredData = [];
     if (displayMode.value === DisplayModeId.locations) {
-        return data.value; // Default location data
+        filteredData = data.value; // Default location data
     } else {
-        return data.value.reduce((result: MapData[], item: MapData) => {
+        filteredData = data.value.reduce((result: MapData[], item: MapData) => {
             result.push(
                 ...item.articles.map((article) => {
                     return {
@@ -43,6 +54,12 @@ const listData = computed<MapData[]>(() => {
             return result;
         }, []);
     }
+
+    filteredData = filteredData.filter((item) => {
+        return item.label?.toLowerCase().includes(searchFilter.value);
+    });
+
+    return filteredData;
 });
 
 // Toggle display mode
@@ -60,12 +77,16 @@ async function handleTrendingClick(event: MouseEvent) {
     if (coordinatesString) {
         const [lat, long] = coordinatesString.split(',');
         flyToMarker([parseFloat(lat!), parseFloat(long!)]);
+        if (toggleCollapse && isMobile.value) {
+            toggleCollapse();
+        }
     }
 }
 </script>
 
 <template>
     <h2 class="font-semibold text-blue-600">{{ visibleMapData.length }} / {{ data.length }} Results</h2>
+    <input class="border p-2 focus:outline-none" type="text" v-model="searchFilter" placeholder="Search Filter" autofocus="true" />
     <fieldset class="flex flex-col" @change="handleChange">
         <legend class="w-full font-semibold border-b-1 py-2">Display Mode</legend>
         <label v-for="mode in displayModes" class="pt-1 cursor-pointer" :key="mode.id">
@@ -84,7 +105,7 @@ async function handleTrendingClick(event: MouseEvent) {
                     :data-coordinates="item.coordinates"
                     :title="item.label"
                 >
-                    {{ item.label }}
+                    <HighlightText :target="searchFilter" :text="item.label" />
                 </li>
             </menu>
         </section>
@@ -100,7 +121,8 @@ async function handleTrendingClick(event: MouseEvent) {
                     :data-coordinates="item.coordinates"
                     :title="item.location"
                 >
-                    {{ item.label }} <br />
+                    <HighlightText :target="searchFilter" :text="item.label" />
+                    <br />
                     <span class="text-xs font-extralight"> ({{ item.location }}) </span>
                 </li>
             </menu>
