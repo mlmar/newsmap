@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import HighlightText from '@/components/HighlightText.vue';
+import SearchInput from '@/components/SearchInput.vue';
 import { useDisplayMode } from '@/composables/useDisplayMode';
 import { useIsMobile } from '@/composables/useIsMobile';
 import { useMapControls } from '@/composables/useMapControl';
@@ -83,7 +84,7 @@ async function handleTrendingClick(event: MouseEvent) {
 
 <template>
     <h2 class="font-semibold text-blue-600">{{ visibleMapData.length }} / {{ data.length }} Results</h2>
-    <input class="border p-2 focus:outline-none" type="text" v-model="searchFilter" placeholder="Search Filter" autofocus="true" />
+    <SearchInput v-model="searchFilter" />
     <fieldset class="flex flex-col" @change="handleChange">
         <legend class="w-full font-semibold border-b-1 py-2">Display Mode</legend>
         <label v-for="mode in displayModes" class="pt-1 cursor-pointer" :key="mode.id">
