@@ -78,5 +78,9 @@ function cleanGDELTText(text: string): string {
         // Fixes cases like " ( Word ) " -> "(Word)"
         .replace(/\(\s+/g, '(')
         .replace(/\s+\)/g, ')')
+        .replace(/\(\s+/g, "'")
+        .replace(/\s+\)/g, "'")
+        .replace(/\(\s+/g, '"')
+        .replace(/\s+\)/g, '"')
         .trim();
 }
