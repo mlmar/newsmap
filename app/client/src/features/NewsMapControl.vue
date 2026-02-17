@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import HighlightText from '@/components/HighlightText.vue';
+import { useDisplayMode } from '@/composables/useDisplayMode';
 import { useIsMobile } from '@/composables/useIsMobile';
 import { useMapControls } from '@/composables/useMapControl';
 import { useMapData } from '@/composables/useMapData';
 import { useSidebarMenuToggle } from '@/composables/useSidebarMenuToggle';
 import { useVisibleMapData } from '@/composables/useVisibleMapData';
-import { DisplayModeId, type DisplayMode } from '@/types/DisplayMode';
+import { DisplayModeId } from '@/types/DisplayMode';
 import type { MapData } from '@newsmap/types';
 import { computed, ref } from 'vue';
 
@@ -17,11 +18,7 @@ const toggleCollapse = useSidebarMenuToggle();
 const searchFilter = ref<string>('');
 
 // Display Mode State
-const displayMode = ref<DisplayModeId>(DisplayModeId.locations);
-const displayModes: DisplayMode[] = [
-    { id: DisplayModeId.locations, label: 'Locations' },
-    { id: DisplayModeId.articles, label: 'Articles' },
-];
+const { displayMode, displayModes } = useDisplayMode();
 
 // Map data state
 const { flyToMarker } = useMapControls();
