@@ -17,7 +17,7 @@ provide<typeof toggleCollapse>('toggleCollapse', toggleCollapse);
 
 <template>
     <Transition name="collapse">
-        <aside v-if="!isCollapsed" class="flex flex-col bg-white gap-2 p-4 z-9999 w-full h-full shadow-md">
+        <aside v-show="!isCollapsed" class="flex flex-col bg-white gap-2 p-4 z-9999 w-full h-full shadow-md">
             <header class="flex justify-between align-center">
                 <h1 class="font-bold text-3xl">{{ title }}</h1>
                 <button class="font-bold cursor-pointer text-lg" @click="toggleCollapse">&#10005;</button>
