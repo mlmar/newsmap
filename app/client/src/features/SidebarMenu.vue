@@ -2,10 +2,6 @@
 import { useIsMobile } from '@/composables/useIsMobile';
 import { provide, ref } from 'vue';
 
-defineProps<{
-    title: string;
-}>();
-
 const isMobile = useIsMobile();
 const isCollapsed = ref<boolean>(isMobile.value);
 function toggleCollapse() {
@@ -19,15 +15,19 @@ provide<typeof toggleCollapse>('toggleCollapse', toggleCollapse);
     <Transition name="collapse">
         <aside v-show="!isCollapsed" class="flex flex-col bg-white gap-2 p-4 z-9999 w-full h-full shadow-md">
             <header class="flex justify-between align-center">
-                <h1 class="font-bold text-3xl">{{ title }}</h1>
+                <h1 class="flex items-center font-bold text-3xl gap-2">
+                    <slot name="title"></slot>
+                </h1>
                 <button class="font-bold cursor-pointer text-lg" @click="toggleCollapse">&#10005;</button>
             </header>
             <slot></slot>
-            <button class="bg-white cursor-pointer collapse-button shadow-md" @click="toggleCollapse">&#10094;</button>
+            <button class="bg-blue-600 text-white cursor-pointer collapse-button shadow-md" @click="toggleCollapse" aria-label="close button">
+                &#10094;
+            </button>
         </aside>
     </Transition>
     <Transition name="expand">
-        <button v-if="isCollapsed" class="bg-white cursor-pointer expand-button z-999" @click="toggleCollapse">&#10095;</button>
+        <button v-if="isCollapsed" class="bg-blue-600 text-white cursor-pointer expand-button z-999" @click="toggleCollapse">&#10095;</button>
     </Transition>
 </template>
 
