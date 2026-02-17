@@ -24,8 +24,7 @@ defineProps<{
         width: 3em;
         border-radius: 100%;
         border-top: solid var(--border-size) transparent;
-        animation: spin infinite 1s forwards linear;
-        mix-blend-mode: multiply;
+        animation: spin infinite 0.8s forwards linear;
     }
 }
 

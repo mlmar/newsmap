@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import HighlightText from '@/components/HighlightText.vue';
+import RadioButtonGroup from '@/components/RadioButtonGroup.vue';
 import SearchInput from '@/components/SearchInput.vue';
 import { useDisplayMode } from '@/composables/useDisplayMode';
 import { useIsMobile } from '@/composables/useIsMobile';
@@ -33,7 +34,7 @@ const listData = computed<MapData[]>(() => {
     }
 
     let filteredData = [];
-    if (displayMode.value === DisplayModeId.locations) {
+    if (displayMode.value === DisplayModeId.Locations) {
         filteredData = data.value; // Default location data
     } else {
         filteredData = data.value.reduce((result: MapData[], item: MapData) => {
@@ -60,11 +61,6 @@ const listData = computed<MapData[]>(() => {
     return filteredData;
 });
 
-// Toggle display mode
-function handleChange(event: Event) {
-    displayMode.value = (event.target as HTMLInputElement).value as DisplayModeId;
-}
-
 /**
  *  Delegate event handler.
  *  Pan to location and open pop up.
@@ -85,21 +81,17 @@ async function handleTrendingClick(event: MouseEvent) {
 <template>
     <h2 class="font-semibold text-blue-600">{{ visibleMapData.length }} / {{ data.length }} Results</h2>
     <SearchInput v-model="searchFilter" />
-    <fieldset class="flex flex-col" @change="handleChange">
-        <legend class="w-full font-semibold border-b-1 py-2">Display Mode</legend>
-        <label v-for="mode in displayModes" class="pt-1 cursor-pointer" :key="mode.id">
-            <input type="radio" name="mode" :value="mode.id" :checked="displayMode == mode.id" />
-            {{ mode.label }}
-        </label>
-    </fieldset>
-    <section v-if="displayMode === DisplayModeId.locations" class="flex flex-col grow overflow-hidden">
+    <RadioButtonGroup :data="displayModes" v-model:selected-id="displayMode">
+        <legend class="w-full font-semibold border-b-1 py-2">Display</legend>
+    </RadioButtonGroup>
+    <section v-if="displayMode === DisplayModeId.Locations" class="flex flex-col grow overflow-hidden gap-2">
         <h2 class="font-semibold border-b-1 py-2">Trending Locations</h2>
         <section class="flex flex-col grow overflow-auto">
-            <menu class="flex flex-col list-decimal list-inside" @click="handleTrendingClick">
+            <menu class="flex flex-col list-decimal list-inside gap-2" @click="handleTrendingClick">
                 <li
                     v-for="item in listData"
                     :key="item.label + item.coordinates!.join()"
-                    class="overflow-hidden text-nowrap text-ellipsis cursor-pointer pt-1 hover:text-blue-600"
+                    class="overflow-hidden text-nowrap text-ellipsis cursor-pointer p-2 bg-gray-100 border hover:text-blue-600"
                     :data-coordinates="item.coordinates"
                     :title="item.label"
                 >
@@ -108,14 +100,14 @@ async function handleTrendingClick(event: MouseEvent) {
             </menu>
         </section>
     </section>
-    <section v-if="displayMode === DisplayModeId.articles" class="flex flex-col grow overflow-hidden">
+    <section v-if="displayMode === DisplayModeId.Articles" class="flex flex-col grow overflow-hidden gap-2">
         <h2 class="font-semibold border-b-1 py-2">Trending Articles</h2>
         <section class="flex flex-col grow overflow-auto">
-            <menu class="flex flex-col list-decimal list-inside" @click="handleTrendingClick">
+            <menu class="flex flex-col list-decimal list-inside gap-2" @click="handleTrendingClick">
                 <li
                     v-for="item in listData"
                     :key="item.label + item.location + item.coordinates!.join()"
-                    class="overflow-hidden text-ellipsis cursor-pointer pt-1 hover:text-blue-600"
+                    class="overflow-hidden text-ellipsis cursor-pointer p-2 bg-gray-100 border hover:text-blue-600"
                     :data-coordinates="item.coordinates"
                     :title="item.location"
                 >

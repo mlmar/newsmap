@@ -4,6 +4,6 @@ export type DisplayMode = {
 }
 
 export enum DisplayModeId {
-    locations = 'locations',
-    articles = 'articles'
+    Locations = 'locations',
+    Articles = 'articles'
 }

@@ -27,4 +27,10 @@ function handleClick() {
     </article>
 </template>
 
-<style scoped></style>
+<style scoped>
+li {
+    &::marker {
+        font-weight: bold;
+    }
+}
+</style>
