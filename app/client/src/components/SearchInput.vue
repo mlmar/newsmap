@@ -17,7 +17,7 @@ function handleClear() {
 <template>
     <span class="flex w-full relative items-center">
         <input
-            class="flex w-full border p-2 rounded-sm focus:outline-none"
+            class="flex w-full border border-(--border-color) bg-white p-2 rounded-sm focus:outline-none"
             type="text"
             placeholder="Search Filter"
             autofocus="true"

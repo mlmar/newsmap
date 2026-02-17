@@ -3,6 +3,7 @@ import { ref } from "vue";
 
 const data = ref<MapData[]>([]);
 const isLoading = ref<boolean>(false);
+const isError = ref<boolean>(false);
 
 /**
  * Composable for returning news data, function for fetching data, and loading flag
@@ -11,20 +12,27 @@ export function useMapData(): {
     data: typeof data,
     fetch: () => Promise<void>
     isLoading: typeof isLoading,
+    isError: typeof isError,
 } {
     const fetch = async () => {
         if (isLoading.value) {
             return;
         }
         isLoading.value = true;
-        data.value = await fetchNews();
-        isLoading.value = false;
+        try {
+            data.value = await fetchNews();
+        } catch (error) {
+            isError.value = true;
+        } finally {
+            isLoading.value = false;
+        }
     }
 
     return {
         data,
         fetch,
-        isLoading
+        isLoading,
+        isError
     }
 }
 

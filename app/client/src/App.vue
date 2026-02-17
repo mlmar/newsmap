@@ -23,16 +23,18 @@ onMounted(async () => {
             News Map
             <TooltipPopup>
                 <button
-                    class="flex items-center justify-center rounded-full w-[1.5em] h-[1.5em] text-sm bg-blue-600 text-white font-semibold cursor-pointer"
+                    class="flex items-center justify-center rounded-full w-[1.5em] h-[1.5em] text-sm bg-(--primary-color) text-white font-semibold cursor-pointer"
                 >
                     i
                 </button>
                 <template #tooltip>
                     <p>
                         This map visualizes the geographic footprint of global media coverage.
+                        <br />
                         <b>Locations represent where news is being reported about, which may differ from where an event is physically occurring.</b>
+                        <br />
                         All metadata including location, tone, and themes are extracted algorithmically by the
-                        <a class="text-blue-600 underline" href="https://blog.gdeltproject.org/gdelt-geo-2-0-api-debuts/">GDELT Project</a>.
+                        <a class="text-(--primary-color) underline" href="https://blog.gdeltproject.org/gdelt-geo-2-0-api-debuts/">GDELT Project</a>.
                     </p>
                 </template>
             </TooltipPopup>

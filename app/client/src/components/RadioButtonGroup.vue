@@ -13,10 +13,10 @@ defineProps<{
                 <label
                     v-for="item in data"
                     :key="item.id"
-                    class="flex items-center justify-center basis-50 cursor-pointer text-white p-2 hover:bg-blue-600 transition-[background] rounded-sm"
+                    class="flex items-center justify-center basis-50 cursor-pointer text-white p-2 hover:bg-(--primary-color) transition-[background] rounded-sm"
                     :class="{
                         'bg-slate-900': item.id !== selectedId,
-                        'bg-blue-600': item.id === selectedId,
+                        'bg-(--primary-color) font-semibold': item.id === selectedId,
                     }"
                 >
                     <input

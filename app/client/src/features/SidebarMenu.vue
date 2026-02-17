@@ -13,25 +13,31 @@ provide<typeof toggleCollapse>('toggleCollapse', toggleCollapse);
 
 <template>
     <Transition name="collapse">
-        <aside v-show="!isCollapsed" class="flex flex-col bg-white gap-2 p-4 z-9999 w-full h-full shadow-md">
+        <aside v-show="!isCollapsed" class="flex flex-col bg-gray-100 gap-2 p-4 z-9999 w-full h-full shadow-md">
             <header class="flex justify-between align-center">
                 <h1 class="flex items-center font-bold text-3xl gap-2">
                     <slot name="title"></slot>
                 </h1>
-                <button class="font-bold cursor-pointer text-lg" @click="toggleCollapse">&#10005;</button>
+                <button class="font-bold cursor-pointer text-lg hover:text-(--primary-color)" @click="toggleCollapse">&#10005;</button>
             </header>
             <slot></slot>
-            <button class="bg-blue-600 text-white cursor-pointer collapse-button shadow-md" @click="toggleCollapse" aria-label="close button">
-                &#10094;
+            <button
+                class="bg-(--primary-color) text-white cursor-pointer collapse-button shadow-md rounded-e-sm"
+                @click="toggleCollapse"
+                aria-label="close button"
+            >
+                <span> &#10094; </span>
             </button>
         </aside>
     </Transition>
     <Transition name="expand">
-        <button v-if="isCollapsed" class="bg-blue-600 text-white cursor-pointer expand-button z-999" @click="toggleCollapse">&#10095;</button>
+        <button v-if="isCollapsed" class="bg-(--primary-color) text-white cursor-pointer expand-button rounded-e-sm z-999" @click="toggleCollapse">
+            <span>&#10095;</span>
+        </button>
     </Transition>
 </template>
 
-<style scoped>
+<style scoped lang="less">
 aside {
     --sidebar-width: 100dvw;
     position: fixed;
@@ -49,7 +55,7 @@ aside {
 
 .collapse-enter-active,
 .collapse-leave-active {
-    transition: margin-left 0.5s ease;
+    transition: margin-left 20.5s ease;
 }
 
 .collapse-enter-from,

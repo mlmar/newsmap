@@ -24,7 +24,7 @@ const { displayMode, displayModes } = useDisplayMode();
 
 // Map data state
 const { flyToMarker } = useMapControls();
-const { data } = useMapData();
+const { data, isLoading, isError } = useMapData();
 const { data: visibleMapData } = useVisibleMapData();
 
 // List data should reflect the display mode
@@ -79,19 +79,23 @@ async function handleTrendingClick(event: MouseEvent) {
 </script>
 
 <template>
-    <h2 class="font-semibold text-blue-600">{{ visibleMapData.length }} / {{ data.length }} Results</h2>
-    <SearchInput v-model="searchFilter" />
+    <h2 class="font-semibold text-(--primary-color)">
+        <template v-if="data.length"> {{ visibleMapData.length }} / {{ data.length }} Locations </template>
+        <template v-if="isLoading"> Loading Map Data </template>
+        <template v-if="isError"> Failed to Load Map Data </template>
+    </h2>
+    <SearchInput v-model="searchFilter" :disabled="isLoading" />
     <RadioButtonGroup :data="displayModes" v-model:selected-id="displayMode">
-        <legend class="w-full font-semibold border-b-1 py-2">Display</legend>
+        <legend class="w-full font-semibold py-2 border-b-2 border-gray-300">Display</legend>
     </RadioButtonGroup>
     <section v-if="displayMode === DisplayModeId.Locations" class="flex flex-col grow overflow-hidden gap-2">
-        <h2 class="font-semibold border-b-1 py-2">Trending Locations</h2>
+        <h2 class="font-semibold py-2 border-b-2 border-gray-300">Trending Locations</h2>
         <section class="flex flex-col grow overflow-auto">
             <menu class="flex flex-col list-decimal list-inside gap-2" @click="handleTrendingClick">
                 <li
                     v-for="item in listData"
                     :key="item.label + item.coordinates!.join()"
-                    class="overflow-hidden text-nowrap text-ellipsis cursor-pointer p-2 bg-gray-100 border hover:text-blue-600"
+                    class="cursor-pointer p-2 bg-white border-1 border-(--border-color) rounded-sm hover:text-(--primary-color)"
                     :data-coordinates="item.coordinates"
                     :title="item.label"
                 >
@@ -101,13 +105,13 @@ async function handleTrendingClick(event: MouseEvent) {
         </section>
     </section>
     <section v-if="displayMode === DisplayModeId.Articles" class="flex flex-col grow overflow-hidden gap-2">
-        <h2 class="font-semibold border-b-1 py-2">Trending Articles</h2>
+        <h2 class="font-semibold py-2 border-b-2 border-gray-300">Trending Articles</h2>
         <section class="flex flex-col grow overflow-auto">
             <menu class="flex flex-col list-decimal list-inside gap-2" @click="handleTrendingClick">
                 <li
                     v-for="item in listData"
                     :key="item.label + item.location + item.coordinates!.join()"
-                    class="overflow-hidden text-ellipsis cursor-pointer p-2 bg-gray-100 border hover:text-blue-600"
+                    class="cursor-pointer p-2 bg-white border-1 border-(--border-color) rounded-sm hover:text-(--primary-color)"
                     :data-coordinates="item.coordinates"
                     :title="item.location"
                 >
