@@ -20,7 +20,9 @@ function handleClick() {
             <h3 class="font-semibold py-2 border-b-2 border-(--border-color)">Articles</h3>
             <ul class="flex flex-col gap-2 list-decimal list-inside">
                 <li v-for="article in articles" :key="article.url">
-                    <a class="hover:underline" :href="article.url" :title="article.title"> {{ article.title }}</a>
+                    <a class="hover:underline" :href="article.url" :title="article.title" target="_blank" rel="noopener noreferrer">
+                        {{ article.title }}</a
+                    >
                 </li>
             </ul>
         </section>
