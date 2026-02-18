@@ -1,15 +1,11 @@
 <script setup lang="ts">
 import type { MapData } from '@newsmap/types';
 
-const props = defineProps<MapData>();
-
-function handleClick() {
-    console.log(props);
-}
+defineProps<MapData>();
 </script>
 
 <template>
-    <article class="flex flex-col gap-2" @click="handleClick">
+    <article class="flex flex-col gap-2">
         <h2 class="text-lg text-nowrap font-bold text-ellipsis overflow-hidden" :title="location">
             {{ location }}
         </h2>
