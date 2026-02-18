@@ -4,7 +4,7 @@ import { useVisibleMapData } from "@/composables/useVisibleMapData";
 import type { MapData } from "@newsmap/types";
 import { ref } from "vue";
 
-type FlyToMarkerOptions = { minDistance: number, zoomLevel: number, duration: number }
+type FlyToMarkerOptions = { minDistance?: number, zoomLevel?: number, duration?: number, scroll?: boolean }
 
 // Map state
 const url = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png';
@@ -18,7 +18,7 @@ export function useMapControls() {
 
     function openPopup(coordinates: MapData['coordinates']) {
         const marker = markerRefs.value.get(coordinates.join());
-        marker?.leafletObject.openPopup();
+        marker?.leafletObject?.openPopup();
     }
 
     /**
@@ -30,7 +30,8 @@ export function useMapControls() {
         const {
             minDistance = 550,
             zoomLevel = 5,
-            duration = .8
+            duration = .8,
+            scroll = true
         } = options ?? {};
 
         const map = mapRef.value?.leafletObject;
@@ -55,10 +56,12 @@ export function useMapControls() {
                 openPopup(coordinates);
             }
 
-            const element = document.getElementById(coordinates.join());
-            element?.scrollIntoView({
-                behavior: 'smooth'
-            });
+            if (scroll) {
+                const element = document.querySelector(`[data-coordinates="${coordinates.join()}"]`) as HTMLLIElement;
+                element?.scrollIntoView({
+                    block: 'start'
+                });
+            }
         }
     }
 
