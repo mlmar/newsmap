@@ -13,11 +13,11 @@ function handleClick() {
         <h2 class="text-lg text-nowrap font-bold text-ellipsis overflow-hidden" :title="location">
             {{ location }}
         </h2>
-        <figure class="flex flex-col w-full max-h-[15em] gap-2 overflow-hidden">
+        <figure class="flex flex-col w-full max-h-[15em] gap-2 overflow-hidden rounded-sm">
             <img class="object-cover" :src="imageUrl" :alt="imageUrl" loading="lazy" />
         </figure>
         <section class="flex flex-col gap-2">
-            <h3 class="font-semibold py-2 border-b-1">Articles</h3>
+            <h3 class="font-semibold py-2 border-b-2 border-(--border-color)">Articles</h3>
             <ul class="flex flex-col gap-2 list-decimal list-inside">
                 <li v-for="article in articles" :key="article.url">
                     <a class="hover:underline" :href="article.url" :title="article.title"> {{ article.title }}</a>
