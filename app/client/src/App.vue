@@ -7,6 +7,7 @@ import SidebarMenu from '@/features/SidebarMenu.vue';
 import NewsMapControl from '@/features/NewsMapControl.vue';
 import { useMapControls } from '@/composables/useMapControl';
 import TooltipPopup from '@/components/TooltipPopup.vue';
+import NewsMapNavigation from '@/features/NewsMapNavigation.vue';
 
 // Data
 const { data, isLoading, fetch } = useMapData();
@@ -43,6 +44,7 @@ onMounted(async () => {
     </SidebarMenu>
     <main class="h-screen w-screen">
         <NewsMap />
+        <NewsMapNavigation />
     </main>
     <LoadingOverlay :visible="isLoading" />
 </template>

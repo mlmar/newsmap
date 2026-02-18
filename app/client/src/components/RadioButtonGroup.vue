@@ -15,7 +15,7 @@ defineProps<{
                     :key="item.id"
                     class="flex items-center justify-center basis-50 cursor-pointer text-white p-2 hover:bg-(--primary-color) transition-[background] rounded-sm"
                     :class="{
-                        'bg-slate-900': item.id !== selectedId,
+                        'bg-(--bg-dark-color)': item.id !== selectedId,
                         'bg-(--primary-color) font-semibold': item.id === selectedId,
                     }"
                 >

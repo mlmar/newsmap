@@ -1,7 +1,6 @@
 
 import { useMapRef } from "@/composables/useMapRef";
 import { useVisibleMapData } from "@/composables/useVisibleMapData";
-import type { MarkerInstance } from "@/types/MarkerInstance";
 import type { MapData } from "@newsmap/types";
 import { ref } from "vue";
 
@@ -11,6 +10,7 @@ type FlyToMarkerOptions = { minDistance: number, zoomLevel: number, duration: nu
 const url = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png';
 const zoom = ref<number>(5);
 const center = ref<[number, number]>([37, -97]);
+const lastLocationIndex = ref<number>(0);
 
 export function useMapControls() {
     const mapRef = useMapRef();
@@ -62,6 +62,7 @@ export function useMapControls() {
         mapRef,
         zoom,
         center,
+        lastLocationIndex,
         flyToMarker
     }
 }

@@ -19,9 +19,10 @@ function handleClear() {
         <input
             class="flex w-full border border-(--border-color) bg-white p-2 rounded-sm focus:outline-none"
             type="text"
-            placeholder="Search Filter"
+            placeholder="Search Results"
             autofocus="true"
             :value="props.modelValue"
+            v-bind="props"
             @input="emit('update:modelValue', ($event.target as HTMLInputElement).value)"
         />
         <button v-if="props.modelValue" class="absolute font-bold cursor-pointer text-lg" @click="handleClear">&#10005;</button>

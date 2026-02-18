@@ -13,7 +13,7 @@ provide<typeof toggleCollapse>('toggleCollapse', toggleCollapse);
 
 <template>
     <Transition name="collapse">
-        <aside v-show="!isCollapsed" class="flex flex-col bg-gray-100 gap-2 p-4 z-9999 w-full h-full shadow-md">
+        <aside v-show="!isCollapsed" class="flex flex-col bg-(--bg-color) gap-2 p-4 z-9999 w-full h-full shadow-md">
             <header class="flex justify-between align-center">
                 <h1 class="flex items-center font-bold text-3xl gap-2">
                     <slot name="title"></slot>
@@ -55,7 +55,7 @@ aside {
 
 .collapse-enter-active,
 .collapse-leave-active {
-    transition: margin-left 20.5s ease;
+    transition: margin-left 0.5s ease;
 }
 
 .collapse-enter-from,

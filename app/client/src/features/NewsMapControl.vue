@@ -23,7 +23,7 @@ const searchFilter = ref<string>('');
 const { displayMode, displayModes } = useDisplayMode();
 
 // Map data state
-const { flyToMarker } = useMapControls();
+const { lastLocationIndex, flyToMarker } = useMapControls();
 const { data, isLoading, isError } = useMapData();
 const { data: visibleMapData } = useVisibleMapData();
 
@@ -33,11 +33,12 @@ const listData = computed<MapData[]>(() => {
         return [];
     }
 
-    let filteredData = [];
     if (displayMode.value === DisplayModeId.Locations) {
-        filteredData = data.value; // Default location data
+        // Default location data (single location to single coordinate)
+        return data.value;
     } else {
-        filteredData = data.value.reduce((result: MapData[], item: MapData) => {
+        // Convert article arrays to single points (many articles to single coordinate)
+        return data.value.reduce((result: MapData[], item: MapData) => {
             result.push(
                 ...item.articles.map((article) => {
                     return {
@@ -53,12 +54,16 @@ const listData = computed<MapData[]>(() => {
             return result;
         }, []);
     }
+});
 
-    filteredData = filteredData.filter((item) => {
+const filteredData = computed<MapData[]>(() => {
+    if (!searchFilter.value) {
+        return listData.value;
+    }
+
+    return listData.value.filter((item) => {
         return item.label?.toLowerCase().includes(searchFilter.value);
     });
-
-    return filteredData;
 });
 
 /**
@@ -69,9 +74,13 @@ async function handleTrendingClick(event: MouseEvent) {
     const li = (event.target as HTMLElement).closest('li');
     const coordinatesString: string | undefined = li?.dataset.coordinates;
     if (coordinatesString) {
-        const [lat, long] = coordinatesString.split(',');
+        lastLocationIndex.value = data.value.findIndex((item) => item.coordinates.join() === coordinatesString); // Find current index of selected coordinates
+
+        const [lat, long] = coordinatesString.split(','); // Fly to coordinates
         flyToMarker([parseFloat(lat!), parseFloat(long!)]);
+
         if (toggleCollapse && isMobile.value) {
+            // Collapse menu on mobile screens
             toggleCollapse();
         }
     }
@@ -93,7 +102,7 @@ async function handleTrendingClick(event: MouseEvent) {
         <section class="flex flex-col grow overflow-auto">
             <menu class="flex flex-col list-decimal list-inside gap-2" @click="handleTrendingClick">
                 <li
-                    v-for="item in listData"
+                    v-for="item in filteredData"
                     :key="item.label + item.coordinates!.join()"
                     class="cursor-pointer p-2 bg-white border-1 border-(--border-color) rounded-sm hover:text-(--primary-color)"
                     :data-coordinates="item.coordinates"
@@ -109,7 +118,7 @@ async function handleTrendingClick(event: MouseEvent) {
         <section class="flex flex-col grow overflow-auto">
             <menu class="flex flex-col list-decimal list-inside gap-2" @click="handleTrendingClick">
                 <li
-                    v-for="item in listData"
+                    v-for="item in filteredData"
                     :key="item.label + item.location + item.coordinates!.join()"
                     class="cursor-pointer p-2 bg-white border-1 border-(--border-color) rounded-sm hover:text-(--primary-color)"
                     :data-coordinates="item.coordinates"
@@ -124,7 +133,7 @@ async function handleTrendingClick(event: MouseEvent) {
     </section>
 </template>
 
-<style scoped>
+<style scoped lang="less">
 li {
     content-visibility: auto;
 
