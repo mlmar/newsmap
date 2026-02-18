@@ -62,7 +62,7 @@ const filteredData = computed<MapData[]>(() => {
     }
 
     return listData.value.filter((item) => {
-        return item.label?.toLowerCase().includes(searchFilter.value);
+        return item.location?.toLocaleLowerCase().includes(searchFilter.value) || item.label?.toLowerCase().includes(searchFilter.value);
     });
 });
 
@@ -126,7 +126,7 @@ async function handleTrendingClick(event: MouseEvent) {
                 >
                     <HighlightText :target="searchFilter" :text="item.label" />
                     <br />
-                    <span class="text-xs font-extralight"> ({{ item.location }}) </span>
+                    <span class="text-xs font-extralight"> <HighlightText :target="searchFilter" :text="`(${item.location})`" /> </span>
                 </li>
             </menu>
         </section>
