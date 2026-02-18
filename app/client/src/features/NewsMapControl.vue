@@ -107,6 +107,7 @@ async function handleTrendingClick(event: MouseEvent) {
                     class="cursor-pointer p-2 bg-white border-1 border-(--border-color) rounded-sm hover:text-(--primary-color)"
                     :data-coordinates="item.coordinates"
                     :title="item.label"
+                    :id="item.coordinates.join()"
                 >
                     <HighlightText :target="searchFilter" :text="item.label" />
                 </li>
@@ -123,6 +124,7 @@ async function handleTrendingClick(event: MouseEvent) {
                     class="cursor-pointer p-2 bg-white border-1 border-(--border-color) rounded-sm hover:text-(--primary-color)"
                     :data-coordinates="item.coordinates"
                     :title="item.location"
+                    :id="item.coordinates.join()"
                 >
                     <HighlightText :target="searchFilter" :text="item.label" />
                     <br />

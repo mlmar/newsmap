@@ -54,6 +54,11 @@ export function useMapControls() {
             } else { // Otherwise open immediately
                 openPopup(coordinates);
             }
+
+            const element = document.getElementById(coordinates.join());
+            element?.scrollIntoView({
+                behavior: 'smooth'
+            });
         }
     }
 
