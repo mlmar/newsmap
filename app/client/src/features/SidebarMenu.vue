@@ -22,7 +22,7 @@ provide<typeof toggleCollapse>('toggleCollapse', toggleCollapse);
             </header>
             <slot></slot>
             <button
-                class="bg-(--primary-color) text-white cursor-pointer collapse-button shadow-md rounded-e-sm"
+                class="bg-(--bg-dark-color) hover:bg-(--primary-color) transition-[background] text-white cursor-pointer collapse-button shadow-md rounded-e-sm"
                 @click="toggleCollapse"
                 aria-label="close button"
             >
@@ -31,7 +31,11 @@ provide<typeof toggleCollapse>('toggleCollapse', toggleCollapse);
         </aside>
     </Transition>
     <Transition name="expand">
-        <button v-if="isCollapsed" class="bg-(--primary-color) text-white cursor-pointer expand-button rounded-e-sm z-999" @click="toggleCollapse">
+        <button
+            v-if="isCollapsed"
+            class="bg-(--bg-dark-color) hover:bg-(--primary-color) transition-[background] text-white cursor-pointer expand-button rounded-e-sm z-999"
+            @click="toggleCollapse"
+        >
             <span>&#10095;</span>
         </button>
     </Transition>
@@ -56,6 +60,11 @@ aside {
 .collapse-enter-active,
 .collapse-leave-active {
     transition: margin-left 0.5s ease;
+
+    .collapse-button,
+    .expand-button {
+        background: var(--primary-color);
+    }
 }
 
 .collapse-enter-from,

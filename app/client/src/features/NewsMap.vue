@@ -10,7 +10,7 @@ import { useTemplateRef } from 'vue';
 
 const mapRef = useMapRef();
 const { url, zoom, center, flyToMarker } = useMapControls();
-const { data } = useMapData();
+const { data, isError } = useMapData();
 const { data: visibleMapData, refreshMarkers } = useVisibleMapData();
 const mapContainer = useTemplateRef('map-container');
 useResizeObserver(mapContainer, () => {
@@ -24,7 +24,7 @@ function handleReady() {
 </script>
 
 <template>
-    <section class="h-full w-full" ref="map-container">
+    <section class="h-full w-ful relative" ref="map-container">
         <LMap
             ref="mapRef"
             v-model:zoom="zoom"
@@ -37,7 +37,20 @@ function handleReady() {
             <LTileLayer :url="url" layer-type="base" name="OpenStreetMap" />
             <NewsMarker v-for="item in visibleMapData" :key="item.coordinates.join()" v-bind="item" />
         </LMap>
+        <p v-if="isError" class="error-message bg-white border border-red-400 p-3 font-bold rounded-sm">
+            We're having trouble connecting to the GDELT GEO API. Service may be offline or rate-limited. Try again in a few minutes.
+        </p>
     </section>
 </template>
 
-<style scoped></style>
+<style scoped>
+.error-message {
+    position: fixed;
+    z-index: 99999;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 90dvw;
+    width: 30em;
+}
+</style>
