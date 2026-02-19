@@ -1,5 +1,6 @@
 import { JSDOM } from 'jsdom';
 import { MapData, NewsFeature, type News } from '@newsmap/types'
+import { fetch, Agent } from 'undici';
 const BASE_URL = 'https://api.gdeltproject.org/api/v2/geo/geo'
 
 export class NewsService {
@@ -17,7 +18,14 @@ export class NewsService {
                 timespan: '1h'
             })
             const url = BASE_URL + '?' + params.toString();
-            const res = await fetch(url);
+
+            const customDispatcher = new Agent({
+                connectTimeout: 30000, // Connection timeout in ms (default is 10000ms)
+            });
+            const res = await fetch(url, {
+                dispatcher: customDispatcher
+            });
+
             const json: News = await res.json() as News;
             const MapData = getMapData(json.features);
             return MapData;
@@ -30,7 +38,7 @@ export class NewsService {
 
 /**
  * Cleans feature data and transforms to MapData
- * @param {NewsFeature} feature 
+ * @param {NewsFeature} features
  * @returns {MapData}
  */
 function getMapData(features: NewsFeature[]): MapData[] {
