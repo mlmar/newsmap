@@ -97,9 +97,9 @@ async function handleTrendingClick(event: MouseEvent) {
 
 <template>
     <h2 class="font-semibold text-(--primary-color)">
-        <template v-if="data.length"> {{ visibleMapData.length }} / {{ data.length }} Locations </template>
         <template v-if="isLoading"> Loading Map Data </template>
-        <template v-if="isError"> Failed to Load Map Data </template>
+        <template v-else-if="isError"> Failed to Load Map Data </template>
+        <template v-else-if="data.length"> {{ visibleMapData.length }} / {{ data.length }} Locations </template>
     </h2>
     <RadioButtonGroup :data="displayModes" v-model:selected-id="displayMode">
         <legend class="w-full font-semibold py-2 border-b-2 border-gray-300">Display & Language</legend>
