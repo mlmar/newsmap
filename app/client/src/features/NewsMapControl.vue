@@ -102,11 +102,9 @@ async function handleTrendingClick(event: MouseEvent) {
         <template v-if="isError"> Failed to Load Map Data </template>
     </h2>
     <RadioButtonGroup :data="displayModes" v-model:selected-id="displayMode">
-        <legend class="w-full font-semibold py-2 border-b-2 border-gray-300">Display</legend>
+        <legend class="w-full font-semibold py-2 border-b-2 border-gray-300">Display & Language</legend>
     </RadioButtonGroup>
-    <SelectDropdown :data="languages" v-model:selected-id="selectedLanguage" :disabled="isLoading || !languages.length">
-        <legend class="w-full font-semibold py-2 border-b-2 border-gray-300">Language</legend>
-    </SelectDropdown>
+    <SelectDropdown :data="languages" v-model:selected-id="selectedLanguage" :disabled="isLoading || !languages.length"> </SelectDropdown>
     <section v-if="displayMode === DisplayModeId.Locations" class="flex flex-col grow overflow-hidden gap-2">
         <h2 class="font-semibold py-2 border-b-2 border-gray-300">Trending Locations</h2>
         <section class="flex flex-col grow overflow-auto">
