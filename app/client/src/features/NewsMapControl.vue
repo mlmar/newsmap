@@ -101,7 +101,6 @@ async function handleTrendingClick(event: MouseEvent) {
         <template v-if="isLoading"> Loading Map Data </template>
         <template v-if="isError"> Failed to Load Map Data </template>
     </h2>
-    <SearchInput v-model="searchFilter" :disabled="isLoading" />
     <RadioButtonGroup :data="displayModes" v-model:selected-id="displayMode">
         <legend class="w-full font-semibold py-2 border-b-2 border-gray-300">Display</legend>
     </RadioButtonGroup>
@@ -142,6 +141,7 @@ async function handleTrendingClick(event: MouseEvent) {
             </menu>
         </section>
     </section>
+    <SearchInput v-model="searchFilter" :disabled="isLoading" />
 </template>
 
 <style scoped lang="less">
