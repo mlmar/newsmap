@@ -1,17 +1,18 @@
 import { JSDOM } from 'jsdom';
-import { MapData, NewsFeature, type News } from '@newsmap/types'
+import { Language, MapData, NewsFeature, type News } from '@newsmap/types'
 import { fetch, Agent } from 'undici';
 const BASE_URL = 'https://api.gdeltproject.org/api/v2/geo/geo'
+const LANGUAGES_URL = 'http://data.gdeltproject.org/api/v2/guides/LOOKUP-LANGUAGES.TXT'
 
 export class NewsService {
     /**
      * Fetches list of news features with geo json information and converts items to MapData
      * @returns {MapData[]} 
      */
-    static async get(): Promise<MapData[]> {
+    static async getData(language?: string): Promise<MapData[]> {
         try {
             const params = new URLSearchParams({
-                query: 'sourcelang:english',
+                query: `sourcelang:${language ?? 'english'}`,
                 mode: 'pointdata',
                 format: 'imagegeojson',
                 sortby: 'datedesc',
@@ -32,6 +33,34 @@ export class NewsService {
         } catch (error) {
             console.error(error);
             throw new Error('Failed to fetch data')
+        }
+    }
+
+    /**
+     * Fetches the list of supported languages from the GDELT lookup file
+     * @returns {Language[]}
+     */
+    static async getLanguages(): Promise<Language[]> {
+        try {
+            const res = await fetch(LANGUAGES_URL);
+            const text = await res.text();
+
+            const languages: Language[] = text
+                .split('\n')
+                .filter((line) => line.trim().length > 0)
+                .map((line) => {
+                    const [id, label] = line.split('\t');
+                    return { id: id!.trim(), label: label!.trim() };
+                })
+                .sort((a, b) => a.label.localeCompare(b.label));
+
+            // Prepend English since it is absent from the GDELT lookup file
+            languages.unshift({ id: 'eng', label: 'English' });
+
+            return languages;
+        } catch (error) {
+            console.error(error);
+            throw new Error('Failed to fetch languages');
         }
     }
 }

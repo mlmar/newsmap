@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
+import { useLanguages } from '@/composables/useLanguages';
 import { useMapData } from '@/composables/useMapData';
 import LoadingOverlay from '@/components/LoadingOverlay.vue';
 import NewsMap from '@/features/NewsMap.vue';
@@ -10,9 +11,11 @@ import TooltipPopup from '@/components/TooltipPopup.vue';
 import NewsMapNavigation from '@/features/NewsMapNavigation.vue';
 
 // Data
-const { data, isLoading, fetch } = useMapData();
+const { fetch: fetchLanguages, selectedLanguage } = useLanguages();
+const { data, isLoading, fetch } = useMapData(selectedLanguage);
 const { flyToMarker } = useMapControls();
 onMounted(async () => {
+    fetchLanguages();
     await fetch();
     flyToMarker(data.value[0]?.coordinates);
 });
