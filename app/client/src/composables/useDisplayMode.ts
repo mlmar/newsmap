@@ -1,7 +1,7 @@
 import { DisplayModeId, type DisplayMode } from "@/types/DisplayMode";
-import { ref } from "vue";
+import { useLocalStorage } from "./useLocalStorage";
 
-const displayMode = ref<DisplayModeId>(DisplayModeId.Articles);
+const displayMode = useLocalStorage<DisplayModeId>('newsmap_display_mode', DisplayModeId.Articles);
 export function useDisplayMode() {
     const displayModes: DisplayMode[] = [
         { id: DisplayModeId.Articles, label: 'Articles' },

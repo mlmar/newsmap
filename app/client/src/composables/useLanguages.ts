@@ -1,8 +1,9 @@
 import type { Language } from "@newsmap/types";
 import { ref } from "vue";
+import { useLocalStorage } from "./useLocalStorage";
 
 const languages = ref<Language[]>([]);
-const selectedLanguage = ref<string>('eng');
+const selectedLanguage = useLocalStorage<Language['id']>('newsmap_selected_language', 'eng');
 const isLoading = ref<boolean>(false);
 
 /**

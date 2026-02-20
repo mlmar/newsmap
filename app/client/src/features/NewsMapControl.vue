@@ -6,20 +6,21 @@ import SelectDropdown from '@/components/SelectDropdown.vue';
 import { useDisplayMode } from '@/composables/useDisplayMode';
 import { useIsMobile } from '@/composables/useIsMobile';
 import { useLanguages } from '@/composables/useLanguages';
+import { useLocalStorage } from '@/composables/useLocalStorage';
 import { useMapControls } from '@/composables/useMapControl';
 import { useMapData } from '@/composables/useMapData';
 import { useSidebarMenuToggle } from '@/composables/useSidebarMenuToggle';
 import { useVisibleMapData } from '@/composables/useVisibleMapData';
 import { DisplayModeId } from '@/types/DisplayMode';
 import type { MapData } from '@newsmap/types';
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 
 // From SidebarMenu
 const isMobile = useIsMobile();
 const toggleCollapse = useSidebarMenuToggle();
 
 // Search filter
-const searchFilter = ref<string>('');
+const searchFilter = useLocalStorage<string>('newsmap_search_filter', '');
 
 // Display Mode State
 const { displayMode, displayModes } = useDisplayMode();
