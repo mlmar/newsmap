@@ -113,7 +113,7 @@ async function handleTrendingClick(event: MouseEvent) {
                 <li
                     v-for="item in filteredData"
                     :key="item.label + item.coordinates!.join()"
-                    class="cursor-pointer p-2 bg-white border-1 border-(--border-color) rounded-sm hover:text-(--primary-color)"
+                    class="cursor-pointer p-2 bg-white border-1 border-(--border-color) rounded-sm hover:text-(--primary-color) focus:text-(--primary-color)"
                     :data-coordinates="item.coordinates"
                     :title="item.label"
                 >
@@ -129,7 +129,7 @@ async function handleTrendingClick(event: MouseEvent) {
                 <li
                     v-for="item in filteredData"
                     :key="item.label + item.location + item.coordinates!.join()"
-                    class="cursor-pointer p-2 bg-white border-1 border-(--border-color) rounded-sm hover:text-(--primary-color)"
+                    class="cursor-pointer p-2 bg-white border-1 border-(--border-color) rounded-sm hover:text-(--primary-color) focus:text-(--primary-color)"
                     :data-coordinates="item.coordinates"
                     :title="item.location"
                 >
