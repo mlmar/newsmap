@@ -95,7 +95,7 @@ function getMapData(features: NewsFeature[]): MapData[] {
             location: feature.properties.name,
             label: feature.properties.name,
             coordinates,
-            imageUrl: feature.properties.shareimage,
+            imageUrl: feature.properties.shareimage.replace('http:', 'https:'),
             articles: anchorElements.map(parseAnchorElement)
         }
     }
@@ -107,7 +107,7 @@ function getMapData(features: NewsFeature[]): MapData[] {
 function parseAnchorElement(anchorElement: HTMLAnchorElement): { title: string, url: string } {
     return {
         title: cleanGDELTText(anchorElement?.title),
-        url: anchorElement?.href
+        url: anchorElement?.href?.replace('http:', 'https:')
     }
 }
 
