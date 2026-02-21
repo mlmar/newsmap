@@ -12,12 +12,14 @@ export class NewsService {
     static async getData(language?: string): Promise<MapData[]> {
         try {
             const params = new URLSearchParams({
-                query: `sourcelang:${language ?? 'english'}`,
                 mode: 'pointdata',
                 format: 'imagegeojson',
                 sortby: 'datedesc',
                 timespan: '1h'
             })
+            if (language !== 'english') {
+                params.set('query', `sourcelang:${language ?? 'english'}`)
+            }
             const url = BASE_URL + '?' + params.toString();
 
             const customDispatcher = new Agent({
