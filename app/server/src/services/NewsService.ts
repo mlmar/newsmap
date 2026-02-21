@@ -30,8 +30,13 @@ export class NewsService {
             });
 
             const json: News = await res.json() as News;
-            const MapData = getMapData(json.features);
-            return MapData;
+            const mapData = getMapData(json.features);
+
+            if (mapData[0]?.location?.startsWith('ERROR') || mapData[0]?.label?.startsWith('ERROR')) {
+                throw new Error(mapData[0].location || mapData[0].label)
+            }
+
+            return mapData;
         } catch (error) {
             console.error(error);
             throw new Error('Failed to fetch data')
