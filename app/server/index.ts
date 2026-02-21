@@ -7,7 +7,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-    origin: '*'
+    origin: process.env.DEV ? '*' : process.env.CLIENT_URL
 }))
 
 app.use('/news', newsRouter);
