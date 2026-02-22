@@ -15,7 +15,7 @@ export type NewsFeature = {
     properties: {
         name: string,
         count: number,
-        shareimage: string,
+        shareimage: string | undefined,
         html: string
     }
 }
