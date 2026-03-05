@@ -15,7 +15,6 @@ export class NewsService {
                 mode: 'pointdata',
                 format: 'imagegeojson',
                 sortby: 'datedesc',
-                maxpoints: '600',
                 timespan: '1h'
             })
             if (language !== 'english') {
